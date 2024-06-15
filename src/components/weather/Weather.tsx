@@ -1,7 +1,17 @@
 import React from 'react';
 import './Weather.css';
 
-const Weather = () => {
+type WeatherProps = {
+	weather: {
+		temp: number;
+		minTemp: number;
+		maxTemp: number;
+		condition: string;
+		conditionIcon: string;
+	};
+};
+
+const Weather = ({ weather }: WeatherProps) => {
 	const timenow = new Date();
 
 	const days = [
@@ -43,27 +53,25 @@ const Weather = () => {
 			<div className="temp-container">
 				<div>
 					<p className="temp">
-						23<sup>°C</sup>
+						{weather.temp}
+						<sup>°C</sup>
 					</p>
 					<p className="temp-desc">
-						{`min ${30}`}
+						{`min ${weather.minTemp}`}
 						<sup>°C</sup>
 						<span>
-							{`max ${30}`}
+							{`max ${weather.maxTemp}`}
 							<sup>°C</sup>
 						</span>
 					</p>
 				</div>
 				<div>
 					<img
-						src={`${'//cdn.weatherapi.com/weather/64x64/night/113.png'.replace(
-							'64x64',
-							'128x128'
-						)}`}
+						src={`${weather.conditionIcon.replace('64x64', '128x128')}`}
 						alt="current-weather-icon"
 						className="current-weather-icon"
 					/>
-					<p className="temp-desc">Heavy rain</p>
+					<p className="temp-desc">{weather.condition}</p>
 				</div>
 			</div>
 		</div>
